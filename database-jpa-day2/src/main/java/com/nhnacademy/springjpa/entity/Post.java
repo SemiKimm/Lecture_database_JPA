@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,4 +35,24 @@ public class Post {
     private Date modifyDateTime;
     @Column(name = "is_delete")
     private boolean deleteFlag;
+
+    @ManyToOne
+    @JoinColumn(name = "user_no")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "board_type_code")
+    private BoardType type;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_post_no")
+    private Post parentPost;
+
+    @ManyToOne
+    @JoinColumn(name = "top_post_no")
+    private Post topPost;
+
+    @ManyToOne
+    @JoinColumn(name = "modifier_user_no")
+    private User modifier;
 }

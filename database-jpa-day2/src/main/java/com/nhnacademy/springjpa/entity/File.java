@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +26,8 @@ public class File {
     private String name;
     @Column(name = "file_path")
     private String path;
+
+    @ManyToOne
+    @JoinColumn(name = "post_no")
+    private Post post;
 }

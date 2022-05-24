@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +29,8 @@ public class User {
     private String password;
     @Column(name = "user_nickname")
     private String nickname;
+
+    @ManyToOne
+    @JoinColumn(name = "user_type_code")
+    private UserType type;
 }
