@@ -1,5 +1,6 @@
 package com.nhnacademy.springjpa.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,7 +32,17 @@ public class User {
     @Column(name = "user_nickname", nullable = false)
     private String nickname;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_type_code", nullable = false)
     private UserType type;
+
+    public static User create(String id, String password, String nickname, UserType type) {
+        User user = new User();
+        user.setId(id);
+        user.setPassword(password);
+        user.setNickname(nickname);
+        user.setType(type);
+        return user;
+    }
+
 }

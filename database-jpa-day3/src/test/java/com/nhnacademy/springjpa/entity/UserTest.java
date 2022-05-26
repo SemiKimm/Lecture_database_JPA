@@ -33,18 +33,15 @@ class UserTest {
     @Test
     public void testUserEntityFind(){
         UserType userType1 = new UserType();
-        userType1.setCode(1);
         userType1.setValue("관리자");
-        userTypeRepository.save(userType1);
 
-        User admin = new User();
-        admin.setId("admin1");
-        admin.setNickname("관리자1");
-        admin.setPassword("1234");
-        admin.setType(userType1);
-        userRepository.save(admin);
+        User admin = User.create("admin", "1234", "관리자", userType1);
+        userRepository.saveAndFlush(admin);
 
-        assertThat(admin.getType().getValue()).isEqualTo(userType1.getValue());
+        User result = userRepository.findById(admin.getNo()).orElse(null);
 
+        assertThat(result).isNotNull();
+        assertThat(result.getNo()).isEqualTo(admin.getNo());
+        assertThat(result.getId()).isEqualTo("admin");
     }
 }

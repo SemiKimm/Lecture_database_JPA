@@ -17,7 +17,7 @@ import lombok.Setter;
 @Table(name = "user_type")
 public class UserType {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_type_code", nullable = false)
     private Integer code;
     @Column(name = "user_type_value", nullable = false)
