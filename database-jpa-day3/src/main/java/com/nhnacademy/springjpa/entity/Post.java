@@ -1,6 +1,7 @@
 package com.nhnacademy.springjpa.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,25 +30,37 @@ public class Post {
     @Column(name = "post_content", nullable = false)
     private String content;
     @Column(name = "write_datetime", nullable = false)
-    private Date writeDateTime;
+    private LocalDateTime writeDateTime;
     @Column(name = "is_delete", nullable = false)
     private boolean deleteFlag;
     @Column(name = "modify_datetime", nullable = true)
-    private Date modifyDateTime;
+    private LocalDateTime modifyDateTime;
     @Column(name = "top_post_no", nullable = true)
     private Integer topPostNo;
     @Column(name = "reply_order", nullable = true)
     private Integer replyOrder;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_no", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "board_type_code", nullable = false)
     private BoardType type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "modifier_user_no", nullable = true)
     private User modifier;
+
+    public static Post create(String title, String content, User user, BoardType type){
+        Post post = new Post();
+        post.setTitle(title);
+        post.setContent(content);
+        post.setWriteDateTime(LocalDateTime.now());
+        post.setDeleteFlag(false);
+        post.setUser(user);
+        post.setType(type);
+
+        return post;
+    }
 }

@@ -9,8 +9,6 @@ import com.nhnacademy.springjpa.repository.BoardTypeRepository;
 import com.nhnacademy.springjpa.repository.PostRepository;
 import com.nhnacademy.springjpa.repository.UserRepository;
 import com.nhnacademy.springjpa.repository.UserTypeRepository;
-import java.sql.Timestamp;
-import java.util.Date;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,30 +43,17 @@ class PostTest {
         UserType userType1 = new UserType();
         userType1.setCode(1);
         userType1.setValue("관리자");
-        userTypeRepository.save(userType1);
 
-        User user1 = new User();
-        user1.setId("admin1");
-        user1.setNickname("관리자1");
-        user1.setPassword("1234");
-        user1.setType(userType1);
-        userRepository.save(user1);
+        User user1 = User.create("admin","1234","관리자", userType1);
 
         BoardType boardType1 = new BoardType();
-        boardType1.setCode(1);
         boardType1.setValue("일반게시판");
-        boardTypeRepository.save(boardType1);
 
-        Post post1 = new Post();
-        post1.setTitle("제목");
-        post1.setContent("본문내용");
-        post1.setWriteDateTime(new Timestamp(new Date().getTime()));
-        post1.setUser(user1);
-        post1.setReplyOrder(0);
-        post1.setType(boardType1);
-        post1.setDeleteFlag(false);
-        postRepository.save(post1);
+        Post post1 = Post.create("제목!", "내용!", user1, boardType1);
+        postRepository.saveAndFlush(post1); // generate 전략이 identity 이고 id 값이 auto increment 인 애들은 insert 한 후에 select 가 일어나서 lastIndex 값을 가져와서 객체의 id(no) 부분에 넣어준다!
 
-        assertThat(post1.getUser().getId()).isEqualTo(user1.getId());
+        Post result = postRepository.findById(post1.getNo()).orElse(null);
+        assertThat(result).isNotNull();
+        assertThat(result.getUser().getNo()).isEqualTo(user1.getNo());
     }
 }
