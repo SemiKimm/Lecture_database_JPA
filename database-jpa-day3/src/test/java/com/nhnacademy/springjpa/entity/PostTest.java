@@ -27,15 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 })
 class PostTest {
     @Autowired
-    UserTypeRepository userTypeRepository;
-
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    BoardTypeRepository boardTypeRepository;
-
-    @Autowired
     PostRepository postRepository;
 
     @Test
@@ -50,7 +41,7 @@ class PostTest {
         boardType1.setValue("일반게시판");
 
         Post post1 = Post.create("제목!", "내용!", user1, boardType1);
-        postRepository.saveAndFlush(post1); // generate 전략이 identity 이고 id 값이 auto increment 인 애들은 insert 한 후에 select 가 일어나서 lastIndex 값을 가져와서 객체의 id(no) 부분에 넣어준다!
+        postRepository.saveAndFlush(post1);
 
         Post result = postRepository.findById(post1.getNo()).orElse(null);
         assertThat(result).isNotNull();

@@ -25,9 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 })
 class UserTest {
     @Autowired
-    UserTypeRepository userTypeRepository;
-
-    @Autowired
     UserRepository userRepository;
 
     @Test
