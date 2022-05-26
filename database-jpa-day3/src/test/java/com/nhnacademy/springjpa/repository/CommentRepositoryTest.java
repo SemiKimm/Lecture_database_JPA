@@ -4,7 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.nhnacademy.springjpa.config.RootConfig;
 import com.nhnacademy.springjpa.config.WebConfig;
-import com.nhnacademy.springjpa.domain.PostDto;
+import com.nhnacademy.springjpa.domain.CommentDto;
+import com.nhnacademy.springjpa.entity.Comment;
 import com.nhnacademy.springjpa.entity.Post;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -23,39 +24,29 @@ import org.springframework.transaction.annotation.Transactional;
     @ContextConfiguration(classes = RootConfig.class),
     @ContextConfiguration(classes = WebConfig.class)
 })
-class PostRepositoryTest {
+class CommentRepositoryTest {
+    @Autowired
+    CommentRepository commentRepository;
     @Autowired
     PostRepository postRepository;
-    @Autowired
-    UserRepository userRepository;
 
     @Test
-    void findAll() {
-        List<Post> result = postRepository.findAll();
-        assertThat(result.size()).isEqualTo(2);
-    }
-
-    @Test
-    void findAllByDeleteFlag_isFalse(){
-        List<PostDto> result = postRepository.findAllByDeleteFlag(false);
-        assertThat(result).isNotEmpty().hasSize(2);
-    }
-
-    @Test
-    void findAllByDeleteFlag_isTrue(){
-        List<PostDto> result = postRepository.findAllByDeleteFlag(true);
-        assertThat(result).isEmpty();
-    }
-
-    @Test
-    void findAllByTitleContaining(){
-        List<PostDto> result = postRepository.findAllByTitleContaining("안");
-        assertThat(result).isNotEmpty().hasSize(1);
-    }
-
-    @Test
-    void findAllByUser(){
-        List<PostDto> result = postRepository.findAllByUser(userRepository.findById(1).orElse(null));
+    void findAll(){
+        List<Comment> result =  commentRepository.findAll();
         assertThat(result).isNotEmpty().hasSize(3);
+    }
+
+    @Test
+    void getAllBy(){
+        List<CommentDto> result =  commentRepository.getAllBy();
+        assertThat(result).isNotEmpty().hasSize(3);
+    }
+
+    @Test
+    void getAllByPost(){
+        Post post = postRepository.findById(3).orElse(null);
+
+        List<CommentDto> result = commentRepository.getAllByPost(post);
+        assertThat(result).isNotEmpty().hasSize(2);
     }
 }
