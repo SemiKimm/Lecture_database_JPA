@@ -1,11 +1,10 @@
 package com.nhnacademy.springjpa.entity;
 
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -16,12 +15,12 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class ViewPk implements Serializable {
     @MapsId
-    @OneToOne
-    @JoinColumn(name = "user_no")
+    @ManyToOne
+    @JoinColumn(name = "user_no", nullable = false)
     private User user;
 
     @MapsId
-    @OneToOne
-    @JoinColumn(name = "post_no")
+    @ManyToOne
+    @JoinColumn(name = "post_no", nullable = false)
     private Post post;
 }

@@ -20,17 +20,17 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_no")
+    @Column(name = "user_no", nullable = false)
     private Integer no;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private String id;
-    @Column(name = "user_password")
+    @Column(name = "user_password", nullable = false)
     private String password;
-    @Column(name = "user_nickname")
+    @Column(name = "user_nickname", nullable = false)
     private String nickname;
 
     @ManyToOne
-    @JoinColumn(name = "user_type_code")
+    @JoinColumn(name = "user_type_code", nullable = false)
     private UserType type;
 }

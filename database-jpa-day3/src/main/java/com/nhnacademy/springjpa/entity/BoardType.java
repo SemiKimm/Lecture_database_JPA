@@ -18,8 +18,8 @@ import lombok.Setter;
 public class BoardType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "board_type_code")
+    @Column(name = "board_type_code", nullable = false)
     private Integer code;
-    @Column(name = "board_code_value")
+    @Column(name = "board_code_value", nullable = false)
     private String value;
 }

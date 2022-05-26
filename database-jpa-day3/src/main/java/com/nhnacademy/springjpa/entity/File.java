@@ -20,14 +20,14 @@ import lombok.Setter;
 public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "file_no")
+    @Column(name = "file_no", nullable = false)
     private Integer no;
-    @Column(name = "file_name")
+    @Column(name = "file_name", nullable = false)
     private String name;
-    @Column(name = "file_path")
+    @Column(name = "file_path", nullable = false)
     private String path;
 
     @ManyToOne
-    @JoinColumn(name = "post_no")
+    @JoinColumn(name = "post_no", nullable = false)
     private Post post;
 }

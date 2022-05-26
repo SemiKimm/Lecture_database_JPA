@@ -18,8 +18,8 @@ import lombok.Setter;
 public class UserType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_type_code")
+    @Column(name = "user_type_code", nullable = false)
     private Integer code;
-    @Column(name = "user_type_value")
+    @Column(name = "user_type_value", nullable = false)
     private String value;
 }

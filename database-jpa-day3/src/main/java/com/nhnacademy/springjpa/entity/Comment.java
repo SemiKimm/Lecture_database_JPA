@@ -20,16 +20,16 @@ import lombok.Setter;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_no")
+    @Column(name = "comment_no", nullable = false)
     private Integer no;
-    @Column(name = "comment_content")
+    @Column(name = "comment_content", nullable = false)
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "post_no")
+    @JoinColumn(name = "post_no", nullable = false)
     private Post post;
 
     @ManyToOne
-    @JoinColumn(name = "user_no")
+    @JoinColumn(name = "user_no", nullable = false)
     private User user;
 }
