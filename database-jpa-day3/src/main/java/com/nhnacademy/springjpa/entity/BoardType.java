@@ -17,7 +17,7 @@ import lombok.Setter;
 @Table(name = "board_type")
 public class BoardType {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_type_code", nullable = false)
     private Integer code;
     @Column(name = "board_code_value", nullable = false)

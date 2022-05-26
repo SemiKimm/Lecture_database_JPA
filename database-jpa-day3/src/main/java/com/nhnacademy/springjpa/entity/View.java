@@ -2,6 +2,7 @@ package com.nhnacademy.springjpa.entity;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
