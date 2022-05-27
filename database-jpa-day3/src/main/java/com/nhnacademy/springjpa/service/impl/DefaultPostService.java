@@ -6,6 +6,7 @@ import com.nhnacademy.springjpa.service.PostService;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,13 +27,13 @@ public class DefaultPostService implements PostService {
     }
 
     @Override
-    public List<PostDto> findPostsNotDeleted() {
-        return postRepository.findAllByDeleteFlag(false);
+    public List<PostDto> findPostsNotDeleted(Pageable pageable) {
+        return postRepository.findAllByDeleteFlag(false, pageable);
     }
 
     @Override
-    public List<PostDto> findPostsDeleted() {
-        return postRepository.findAllByDeleteFlag(true);
+    public List<PostDto> findPostsDeleted(Pageable pageable) {
+        return postRepository.findAllByDeleteFlag(true, pageable);
     }
 
     @Override

@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -38,14 +39,14 @@ class PostRepositoryTest {
 
     @Test
     void findAllByDeleteFlag_isFalse(){
-        List<PostDto> result = postRepository.findAllByDeleteFlag(false);
+        List<PostDto> result = postRepository.findAllByDeleteFlag(false, Pageable.unpaged());
         assertThat(result).isNotEmpty().hasSize(3);
     }
 
     @Test
     void findAllByDeleteFlag_isTrue(){
-        List<PostDto> result = postRepository.findAllByDeleteFlag(true);
-        assertThat(result).isEmpty();
+        List<PostDto> result = postRepository.findAllByDeleteFlag(true, Pageable.unpaged());
+        assertThat(result).isNotEmpty().hasSize(1);
     }
 
     @Test
