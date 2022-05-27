@@ -1,0 +1,30 @@
+GET /post/view/3
+Content-Type: application/json
+Host: localhost:8081
+
+###
+
+GET /post/list/all
+Content-Type: application/json
+Host: localhost:8081
+
+###
+
+GET /post/list/deleted
+Content-Type: application/json
+Host: localhost:8081
+
+###
+GET /post/delete/3
+Content-Type: application/json
+Host: localhost:8081
+
+###
+POST /post/modify/3
+Content-Type: application/json
+Host: localhost:8081
+
+{
+  "title": "제목수정",
+  "content": "내용수정"
+}

@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.nhnacademy.springjpa.config.RootConfig;
 import com.nhnacademy.springjpa.config.WebConfig;
 import com.nhnacademy.springjpa.domain.PostDto;
-import com.nhnacademy.springjpa.domain.PostWithCommentCountDto;
 import com.nhnacademy.springjpa.entity.Post;
 import com.nhnacademy.springjpa.entity.User;
 import java.util.List;
@@ -89,5 +88,21 @@ class PostRepositoryTest {
     void getPostsWithCommentCount(){ //fixme
 //        List<PostWithCommentCountDto> result = postRepository.getPostsWithCommentCount();
 //        assertThat(result).isNotEmpty().hasSize(3);
+    }
+
+    @Test
+    void updateDeletedFlag(){
+        int result = postRepository.updateDeletedFlag(3);
+        assertThat(result).isEqualTo(1);
+    }
+
+    @Test
+    void updatePost(){
+        int result = postRepository.updatePost(3,"제목수정", "내용수정");
+        PostDto updatedPost = postRepository.getPostByNo(3).orElse(null);
+        assertThat(result).isEqualTo(1);
+        assertThat(updatedPost).isNotNull();
+        assertThat(updatedPost.getTitle()).isEqualTo("제목수정");
+        assertThat(updatedPost.getContent()).isEqualTo("내용수정");
     }
 }
