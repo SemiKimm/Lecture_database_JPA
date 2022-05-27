@@ -28,3 +28,13 @@ Host: localhost:8081
   "title": "제목수정",
   "content": "내용수정"
 }
+
+###
+POST /post/register/3
+Content-Type: application/json
+Host: localhost:8081
+
+{
+  "title": "새로운 제목",
+  "content": "새로운 내용"
+}

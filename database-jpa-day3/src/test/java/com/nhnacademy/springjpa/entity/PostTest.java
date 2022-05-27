@@ -28,17 +28,25 @@ import org.springframework.transaction.annotation.Transactional;
 class PostTest {
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    UserTypeRepository userTypeRepository;
+    @Autowired
+    BoardTypeRepository boardTypeRepository;
 
     @Test
     public void testPostEntity(){
         UserType userType1 = new UserType();
-        userType1.setCode(1);
         userType1.setValue("관리자");
+        userTypeRepository.save(userType1);
 
         User user1 = User.create("admin","1234","관리자", userType1);
+        userRepository.save(user1);
 
         BoardType boardType1 = new BoardType();
         boardType1.setValue("일반게시판");
+        boardTypeRepository.save(boardType1);
 
         Post post1 = Post.create("제목!", "내용!", user1, boardType1);
         postRepository.saveAndFlush(post1);

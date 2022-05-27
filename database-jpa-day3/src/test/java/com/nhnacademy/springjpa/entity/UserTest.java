@@ -26,11 +26,14 @@ import org.springframework.transaction.annotation.Transactional;
 class UserTest {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserTypeRepository userTypeRepository;
 
     @Test
     public void testUserEntityFind(){
         UserType userType1 = new UserType();
         userType1.setValue("관리자");
+        userTypeRepository.save(userType1);
 
         User admin = User.create("admin", "1234", "관리자", userType1);
         userRepository.saveAndFlush(admin);

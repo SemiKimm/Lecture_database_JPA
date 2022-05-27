@@ -34,13 +34,13 @@ class PostRepositoryTest {
     @Test
     void findAll() {
         List<Post> result = postRepository.findAll();
-        assertThat(result.size()).isEqualTo(2);
+        assertThat(result.size()).isEqualTo(7);
     }
 
     @Test
     void findAllByDeleteFlag_isFalse(){
         List<PostDto> result = postRepository.findAllByDeleteFlag(false, Pageable.unpaged());
-        assertThat(result).isNotEmpty().hasSize(3);
+        assertThat(result).isNotEmpty().hasSize(6);
     }
 
     @Test
@@ -83,12 +83,6 @@ class PostRepositoryTest {
 
         List<PostDto> result = postRepository.getPostDtoByUserAndGood(user);
         assertThat(result).isNotEmpty().hasSize(2);
-    }
-
-    @Test
-    void getPostsWithCommentCount(){ //fixme
-//        List<PostWithCommentCountDto> result = postRepository.getPostsWithCommentCount();
-//        assertThat(result).isNotEmpty().hasSize(3);
     }
 
     @Test

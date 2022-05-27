@@ -1,11 +1,15 @@
 package com.nhnacademy.springjpa.controller;
 
 import com.nhnacademy.springjpa.domain.PostDto;
+import com.nhnacademy.springjpa.entity.Post;
 import com.nhnacademy.springjpa.request.ModifyRequest;
+import com.nhnacademy.springjpa.request.PostRegisterRequest;
 import com.nhnacademy.springjpa.service.PostService;
 import java.util.List;
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 import org.springframework.data.domain.Pageable;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,7 +48,21 @@ public class PostRestController {
 
     @PostMapping("/modify/{postNo}")
     public Integer doUpdatePost(@PathVariable("postNo") Integer postNo,
-                                @Valid @RequestBody ModifyRequest request) {
+                                @Valid @RequestBody ModifyRequest request,
+                                BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            throw new ValidationException();
+        }
         return postService.modifyPost(postNo, request.getTitle(), request.getContent());
+    }
+
+    @PostMapping("/register/{userNo}")
+    public Post doRegisterPost(@PathVariable("userNo") Integer userNo,
+                               @Valid @RequestBody PostRegisterRequest request,
+                               BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            throw new ValidationException();
+        }
+        return postService.registerPost(userNo, request);
     }
 }

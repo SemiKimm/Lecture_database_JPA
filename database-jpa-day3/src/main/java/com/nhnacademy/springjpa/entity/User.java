@@ -32,7 +32,7 @@ public class User {
     @Column(name = "user_nickname", nullable = false)
     private String nickname;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_type_code", nullable = false)
     private UserType type;
 
